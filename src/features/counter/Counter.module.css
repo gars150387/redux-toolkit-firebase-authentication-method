@@ -17,7 +17,7 @@
   padding-left: 16px;
   padding-right: 16px;
   margin-top: 2px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .button {
@@ -36,11 +36,11 @@
   transition: all 0.15s;
 }
 
-.textbox {
+.pbox {
   font-size: 32px;
   padding: 2px;
   width: 64px;
-  text-align: center;
+  p-align: center;
   margin-right: 4px;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .asyncButton:after {
-  content: '';
+  content: "";
   background-color: rgba(112, 76, 182, 0.15);
   display: block;
   position: absolute;
