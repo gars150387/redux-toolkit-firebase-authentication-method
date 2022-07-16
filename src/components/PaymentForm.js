@@ -1,6 +1,19 @@
 import React from "react";
+import { useForm } from "../hooks/useForm";
+
+
+
+const formDataCreditCard = {
+name: 'Anna Doe',
+cardNumber: '12365478665611',
+expire: '25/25',
+cvv: '542'
+}
+
 
 export const PaymentForm = ({ increase }) => {
+  const { name, cardNumber, expire, cvv, onInputChange } = useForm(formDataCreditCard);
+
   return (
     <section
       className="p-4 p-md-5"
@@ -20,31 +33,6 @@ export const PaymentForm = ({ increase }) => {
               <form action="">
                 <p className="fw-bold mb-4 pb-2">Amount: ${increase * 200} </p>
 
-                {/* <div className="d-flex flex-row align-items-center mb-4 pb-1">
-              <img className="img-fluid" src="" />
-              
-              <div className="flex-fill mx-3">
-                <div className="form-outline">
-                  <input type="p" id="formControlLgXc" className="form-control form-control-lg"
-                    value="**** **** **** 3193" />
-                  <label className="form-label" for="formControlLgXc">Card Number</label>
-                </div>
-              </div>
-              <a href="#!">Remove card</a>
-            </div> */}
-
-                {/* <div className="d-flex flex-row align-items-center mb-4 pb-1">
-              <img className="img-fluid" src="https://img.icons8.com/color/48/000000/visa.webp" />
-              <div className="flex-fill mx-3">
-                <div className="form-outline">
-                  <input type="p" id="formControlLgXs" className="form-control form-control-lg"
-                    value="**** **** **** 4296" />
-                  <label className="form-label" for="formControlLgXs">Card Number</label>
-                </div>
-              </div>
-              <a href="#!">Remove card</a>
-            </div> */}
-
                 <p className="fw-bold mb-4">Add new card:</p>
 
                 <div className="form-outline mb-4">
@@ -52,9 +40,11 @@ export const PaymentForm = ({ increase }) => {
                     type="p"
                     id="formControlLgXsd"
                     className="form-control form-control-lg"
-                    value="Anna Doe"
+                    name="Anna Doe"
+                    value={name}
+                    onChange={onInputChange}
                   />
-                  <label className="form-label" for="formControlLgXsd">
+                  <label className="form-label" htmlFor="formControlLgXsd">
                     Cardholder's Name
                   </label>
                 </div>
@@ -66,9 +56,11 @@ export const PaymentForm = ({ increase }) => {
                         type="p"
                         id="formControlLgXM"
                         className="form-control form-control-lg"
-                        value="1234 5678 1234 5678"
+                        name="1234 5678 1234 5678"
+                        value={cardNumber }
+                        onChange={onInputChange}
                       />
-                      <label className="form-label" for="formControlLgXM">
+                      <label className="form-label" htmlFor="formControlLgXM">
                         Card Number
                       </label>
                     </div>
@@ -80,8 +72,11 @@ export const PaymentForm = ({ increase }) => {
                         id="formControlLgExpk"
                         className="form-control form-control-lg"
                         placeholder="MM/YYYY"
+                        name="expire"
+                        value={ expire }
+                        onChange={onInputChange}
                       />
-                      <label className="form-label" for="formControlLgExpk">
+                      <label className="form-label" htmlFor="formControlLgExpk">
                         Expire
                       </label>
                     </div>
@@ -93,8 +88,11 @@ export const PaymentForm = ({ increase }) => {
                         id="formControlLgcvv"
                         className="form-control form-control-lg"
                         placeholder="Cvv"
+                        name=""
+                        value={ cvv }
+                        onChange={onInputChange}
                       />
-                      <label className="form-label" for="formControlLgcvv">
+                      <label className="form-label" htmlFor="formControlLgcvv">
                         Cvv
                       </label>
                     </div>
