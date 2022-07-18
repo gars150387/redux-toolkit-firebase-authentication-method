@@ -2,18 +2,21 @@ import React, { useMemo } from "react";
 
 import "./RegisterForm.css";
 import { useDispatch, useSelector } from "react-redux";
-import { checkingAuthentication, startGoogleSignin } from "../app/auth/thunk";
+import { startGoogleSignin, startLoginWithEmailPassword } from "../app/auth/thunk";
+import { useForm } from "../hooks/useForm";
 
-// const formValidations = {
-//   email: [(value) => value.includes("@"), "Email form required"],
-//   password: [
-//     (value) => value.includes >= 6,
-//     "Password must be greater than 6 digits",
-//   ],
-//   displayName: [(value) => value.length >= 1, "Name is required"],
-// };
 
-export const LoginForm = ({ increase, setIncrease }) => {
+
+export const LoginForm = () => {
+
+  const {
+    email,
+    password,
+    onInputChange,
+  } = useForm();
+
+
+
   const { status } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -22,7 +25,8 @@ export const LoginForm = ({ increase, setIncrease }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingAuthentication());
+
+    dispatch( startLoginWithEmailPassword({ email, password }));
   };
 
   const googleSignin = () => {
@@ -39,6 +43,9 @@ export const LoginForm = ({ increase, setIncrease }) => {
               className="form-control"
               placeholder="Email"
               aria-label="Email"
+              name="email"
+              value={ email }
+              onChange={ onInputChange }
             />
           </div>
           <div className="col">
@@ -47,6 +54,9 @@ export const LoginForm = ({ increase, setIncrease }) => {
               className="form-control"
               placeholder="Password"
               aria-label="Password"
+              name="password"
+              value={ [password] }
+              onChange={ onInputChange }
             />
           </div>
         </div>
