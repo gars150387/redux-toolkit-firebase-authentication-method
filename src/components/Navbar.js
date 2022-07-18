@@ -1,17 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../app/auth/thunk";
 
 export const Navbar = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const { status } = useSelector((state) => state.auth);
 
-  const {displayName, photoURL} = useSelector((state) => state.auth)
+  const { displayName, photoURL } = useSelector((state) => state.auth);
 
-  const clickToLogout= () =>{
-    dispatch( startLogout() )
-  }
+  const clickToLogout = () => {
+    dispatch(startLogout());
+  };
 
   let activeStyle = {
     pDecoration: "underline",
@@ -20,10 +21,48 @@ export const Navbar = () => {
 
   return (
     <nav>
-      <h1>{ displayName }</h1>
-      <img src={ photoURL } alt={ photoURL } />
+      <h1>{displayName}</h1>
+      <img src={photoURL} alt={photoURL} />
       <ul>
-        <li>
+        
+        {status === "authenticated" ? (
+          <>
+          <li>
+              <NavLink
+                to="/main"
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
+              >
+                Main
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/help"
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
+              >
+                Help
+              </NavLink>
+            </li>
+            <li onClick={clickToLogout}>
+              <NavLink
+                to="/"
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
+              >
+                Logout
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
           <NavLink
             to="/"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
@@ -31,31 +70,8 @@ export const Navbar = () => {
             Home
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/profile"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Profile
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/help"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Help
-          </NavLink>
-        </li>
-        <li onClick={ clickToLogout }>
-          <NavLink
-            to="/"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-            
-          >
-            Logout
-          </NavLink>
-        </li>
+          </>
+        )}
       </ul>
     </nav>
   );
