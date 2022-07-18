@@ -1,7 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { startLogout } from "../app/auth/thunk";
 
 export const Navbar = () => {
+
+  const dispatch = useDispatch()
+
+  const {displayName, photoURL} = useSelector((state) => state.auth)
+
+  const clickToLogout= () =>{
+    dispatch( startLogout() )
+  }
+
   let activeStyle = {
     pDecoration: "underline",
     color: "#212529",
@@ -9,6 +20,8 @@ export const Navbar = () => {
 
   return (
     <nav>
+      <h1>{ displayName }</h1>
+      <img src={ photoURL } alt={ photoURL } />
       <ul>
         <li>
           <NavLink
@@ -32,6 +45,15 @@ export const Navbar = () => {
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Help
+          </NavLink>
+        </li>
+        <li onClick={ clickToLogout }>
+          <NavLink
+            to="/"
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            
+          >
+            Logout
           </NavLink>
         </li>
       </ul>
