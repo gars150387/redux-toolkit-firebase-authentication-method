@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
@@ -38,26 +39,32 @@ export const signInWithGoogle = async () => {
   }
 };
 
-export const registerUserWithEmailPassword = async ({email, password, displayName }) => {
-
-
+export const registerUserWithEmailPassword = async ({
+  email,
+  password,
+  displayName,
+}) => {
   try {
-    const response = await createUserWithEmailAndPassword( FirebaseAuth, email, password );
+    const response = await createUserWithEmailAndPassword(
+      FirebaseAuth,
+      email,
+      password
+    );
 
     const { uid, photoURL } = response.user;
 
     //TODO: update displayName
 
-    await updateProfile( FirebaseAuth.currentUser, {displayName})
+    await updateProfile(FirebaseAuth.currentUser, { displayName });
 
     return {
       ok: true,
-      uid, photoURL, email, displayName
-    }
-
-
+      uid,
+      photoURL,
+      email,
+      displayName,
+    };
   } catch (error) {
-
     console.log(error);
     return {
       ok: false,
@@ -65,3 +72,34 @@ export const registerUserWithEmailPassword = async ({email, password, displayNam
     };
   }
 };
+
+export const loginWithEmailPassword = async ({ email, password }) => {
+  try {
+    
+    const response = await signInWithEmailAndPassword(
+      FirebaseAuth,
+      email,
+      password
+    );
+
+    const { uid, displayName, photoURL} = response.user
+
+    return {
+      ok: true,
+      uid, displayName, photoURL
+    };
+    
+  } catch (error) {
+    return {
+      ok: false,
+      errorMessage: error.message,
+    };
+  }
+};
+
+
+export const logoutFirebase = async () => {
+
+  return await FirebaseAuth.signOut()
+
+}
