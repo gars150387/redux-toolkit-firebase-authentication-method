@@ -21,7 +21,9 @@ const formData = {
 // };
 
 export const RegisterForm = ({ increase, setIncrease }) => {
-  const { status } = useSelector((state) => state.auth);
+
+
+  const { status, errorMessage } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -38,6 +40,7 @@ export const RegisterForm = ({ increase, setIncrease }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     dispatch(startCreatingUserWithEmailPassword(formState));
     console.log({ email, password, displayName })
   };
@@ -68,7 +71,12 @@ export const RegisterForm = ({ increase, setIncrease }) => {
             <label className="form-check-label">Check me out</label>
           </div>
         </div>
-        <div className="col-12">
+        <div 
+        className="col"
+        >
+          { errorMessage }
+        </div>
+        <div className="col">
           <button
           disabled={ isAuthenticating }
           type="submit" className="btn btn-primary">
