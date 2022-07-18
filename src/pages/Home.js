@@ -34,6 +34,7 @@ export const Home = () => {
       </section>
       <section>
         <p>
+          
           Device: {increase}
           <button onClick={handleIncrease}>+</button>
           <button onClick={handleReset}>Reset</button>
