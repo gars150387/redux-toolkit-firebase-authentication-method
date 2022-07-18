@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
 
 export const Home = () => {
@@ -26,6 +27,10 @@ export const Home = () => {
     <div>
       <section>
         <RegisterForm setIncrease={setIncrease} increase={increase} />
+      </section>
+      <span> <h2>Or you can sign in</h2></span>
+      <section>
+        <LoginForm />
       </section>
       <section>
         <p>
