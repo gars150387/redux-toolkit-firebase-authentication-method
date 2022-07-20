@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Main = () => {
   return (
-    <div>Main</div>
+    <>
+    <button style={{ borderRadius: '50px', backgroundColor: '#212529', color: '#fff'}}>+</button>
+    </>
   )
 }
