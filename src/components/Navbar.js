@@ -20,59 +20,62 @@ export const Navbar = () => {
   };
 
   return (
-    <nav>
-      <h1>{displayName}</h1>
+    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100% ', border: '1px solid #000' }}>
+      <div>
+        <h1>{displayName}</h1>
       <img src={photoURL} alt={photoURL} />
-      <ul>
+      </div>
+      
+      <div>
         
         {status === "authenticated" ? (
           <>
-          <li>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
               <NavLink
                 to="/main"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 Main
               </NavLink>
-            </li>
-            <li>
+            </div>
+            <div>
               <NavLink
                 to="/profile"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 Profile
               </NavLink>
-            </li>
-            <li>
+            </div>
+            <div>
               <NavLink
                 to="/help"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 Help
               </NavLink>
-            </li>
-            <li onClick={clickToLogout}>
+            </div>
+            <div onClick={clickToLogout}>
               <NavLink
                 to="/"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 Logout
               </NavLink>
-            </li>
+            </div>
           </>
         ) : (
           <>
-            <li>
+            <div>
           <NavLink
             to="/"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Home
           </NavLink>
-        </li>
+        </div>
           </>
         )}
-      </ul>
+      </div>
     </nav>
   );
 };
