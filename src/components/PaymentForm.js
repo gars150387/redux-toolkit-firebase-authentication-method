@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "../hooks/useForm";
 
-
-
 const formDataCreditCard = {
-name: 'Anna Doe',
-cardNumber: '12365478665611',
-expire: '25/25',
-cvv: '542'
-}
+  name: "Anna Doe",
+  cardNumber: "12365478665611",
+  expire: "25/25",
+  cvv: "542",
+};
 
+const initialState = 1
 
 export const PaymentForm = ({ increase }) => {
-  const { name, cardNumber, expire, cvv, onInputChange } = useForm(formDataCreditCard);
+  const { name, cardNumber, expire, cvv, onInputChange } =
+    useForm(formDataCreditCard);
+
+
+  const [deviceNumber, setDeviceNumber] = useState(initialState);
+
+  const handleDeviceNumberIncrease = (event) => {
+    event.preventDefault();
+    setDeviceNumber(deviceNumber + 1);
+  };
+
+  const handleDeviceNumberDecrease = (event) => {
+    event.preventDefault();
+    setDeviceNumber(deviceNumber - 1);
+
+    if( deviceNumber === 1){
+      return setDeviceNumber(initialState)
+    }
+  };
+
+
+  const handleDeviceNumberReset = (event) => {
+    event.preventDefault();
+    setDeviceNumber(initialState)
+  };
 
   return (
     <section
@@ -20,9 +43,19 @@ export const PaymentForm = ({ increase }) => {
       style={{
         backgroundImage:
           "url(https://mdbcdn.b-cdn.net/img/Photos/Others/background3.webp)",
+        width: "100%",
       }}
     >
-      <div className="row d-flex justify-content-center">
+      <div 
+      className="row d-flex justify-content-center"
+      style={{ width: '100%'}}
+      >
+        <div>
+          <button onClick={ handleDeviceNumberIncrease }>+</button>
+          <span>{deviceNumber}</span>
+          <button onClick={ handleDeviceNumberDecrease }>-</button>
+          <button onClick={ handleDeviceNumberReset }>Reset</button>
+        </div>
         <div className="col-md-10 col-lg-8 col-xl-5">
           <div className="card rounded-3">
             <div className="card-body p-4">
@@ -31,7 +64,7 @@ export const PaymentForm = ({ increase }) => {
                 <h6>Payment</h6>
               </div>
               <form action="">
-                <p className="fw-bold mb-4 pb-2">Amount: ${increase * 200} </p>
+                <p className="fw-bold mb-4 pb-2">Amount: ${deviceNumber * 200} </p>
 
                 <p className="fw-bold mb-4">Add new card:</p>
 
@@ -57,7 +90,7 @@ export const PaymentForm = ({ increase }) => {
                         id="formControlLgXM"
                         className="form-control form-control-lg"
                         name="1234 5678 1234 5678"
-                        value={cardNumber }
+                        value={cardNumber}
                         onChange={onInputChange}
                       />
                       <label className="form-label" htmlFor="formControlLgXM">
@@ -73,7 +106,7 @@ export const PaymentForm = ({ increase }) => {
                         className="form-control form-control-lg"
                         placeholder="MM/YYYY"
                         name="expire"
-                        value={ expire }
+                        value={expire}
                         onChange={onInputChange}
                       />
                       <label className="form-label" htmlFor="formControlLgExpk">
@@ -89,7 +122,7 @@ export const PaymentForm = ({ increase }) => {
                         className="form-control form-control-lg"
                         placeholder="Cvv"
                         name=""
-                        value={ cvv }
+                        value={cvv}
                         onChange={onInputChange}
                       />
                       <label className="form-label" htmlFor="formControlLgcvv">
@@ -100,7 +133,7 @@ export const PaymentForm = ({ increase }) => {
                 </div>
 
                 <button className="btn btn-success btn-lg btn-block">
-                  Add card
+                  Submit payment
                 </button>
               </form>
             </div>
