@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "../hooks/useForm";
+import { StripeContainer } from "../stripe/StripeContainer";
 
 const formDataCreditCard = {
   name: "Anna Doe",
@@ -65,7 +66,8 @@ export const PaymentForm = ({ increase }) => {
               </div>
               <form action="">
                 <p className="fw-bold mb-4 pb-2">Amount: ${deviceNumber * 200} </p>
-
+                <StripeContainer />
+{/* 
                 <p className="fw-bold mb-4">Add new card:</p>
 
                 <div className="form-outline mb-4">
@@ -134,7 +136,7 @@ export const PaymentForm = ({ increase }) => {
 
                 <button className="btn btn-success btn-lg btn-block">
                   Submit payment
-                </button>
+                </button> */}
               </form>
             </div>
           </div>
