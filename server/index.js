@@ -20,6 +20,7 @@ app.post("/api/checkout", async (req, res) => {
       payment_method: id,
       capture_method: "manual",
       confirm: true,
+      
     });
 
     // const intent = await stripe.paymentIntents.capture( id, amount )
